@@ -1,5 +1,5 @@
 
-service_name="Unfs"
+service_name="uNFS"
 default_port=2049
 
 wait_for_running() {
@@ -14,7 +14,7 @@ wait_for_listening() {
   container=$1
   ip=$2
   port=$3
-  until docker exec ${container} bash -c "nc -q 1 ${ip} ${port} < /dev/null"
+  until docker exec ${container} bash -c "nc -q 1 -w 1 ${ip} ${port} < /dev/null"
   do
     sleep 1
   done
@@ -41,7 +41,7 @@ insert_test_data() {
   port=$3
   key=$4
   data=$5
-  run docker exec ${container} bash -c "echo '${data}' > /data/var/db/unfs/${key}.txt"
+  run docker exec ${container} bash -c "echo '${data}' > /asdf/data/var/db/unfs/${key}.txt"
 }
 
 update_test_data() {
@@ -50,7 +50,7 @@ update_test_data() {
   port=$3
   key=$4
   data=$5
-  run docker exec ${container} bash -c "echo '${data}' > /data/var/db/unfs/${key}.txt"
+  run docker exec ${container} bash -c "echo '${data}' > /asdf/data/var/db/unfs/${key}.txt"
 }
 
 verify_test_data() {
@@ -60,7 +60,8 @@ verify_test_data() {
   key=$4
   data=$5
   run docker exec ${container} bash -c "mkdir -p /mnt/unfs"
-  run docker exec ${container} bash -c "mount -t nfs -o rw,intr,proto=tcp,vers=3,nolock ${ip}:/data/var/db/unfs /mnt/unfs"
+  run docker exec ${container} bash -c "mount -t nfs -o rw,intr,proto=tcp,vers=3,nolock ${ip}:/asdf/data/var/db/unfs /mnt/unfs"
+  echo $output
   [ "$status" -eq 0 ]
   run docker exec ${container} bash -c "cat /mnt/unfs/${key}.txt"
   echo_lines
@@ -74,10 +75,10 @@ verify_plan() {
 {
   "redundant": false,
   "horizontal": false,
-  "user": "gonano",
+  "user": "gomicro",
   "users": [
     {
-      "username": "gonano",
+      "username": "gomicro",
       "meta": {
       }
     }

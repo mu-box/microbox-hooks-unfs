@@ -35,7 +35,7 @@ fi
 
 # Ensure a version was provided
 if [[ -z "$unfs_version" ]]; then
-  echo "Fatal: UNFS version must be specified as the second argument"
+  echo "Fatal: uNFS version must be specified as the second argument"
   exit 1
 fi
 

@@ -15,6 +15,7 @@ echo_lines() {
   echo_lines
   [ "$status" -eq 0 ] 
   run run_hook "backup-restore" "start" "$(payload start)"
+  echo_lines
   [ "$status" -eq 0 ]
   # Verify
   wait_for_running "backup-restore"

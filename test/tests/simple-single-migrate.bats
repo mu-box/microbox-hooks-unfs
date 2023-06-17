@@ -93,7 +93,7 @@ echo_lines() {
   echo_lines
   [ "$status" -eq 0 ]
 
-  run docker exec "simple-single-new" bash -c "[[ ! -d /root/data ]]"
+  run docker exec "simple-single-new" bash -c "[[ ! -d /root/asdf/data ]]"
   [ "$status" -eq 0 ]
 }
 
@@ -127,7 +127,7 @@ echo_lines() {
   echo_lines
   [ "$status" -eq 0 ]
   
-  run docker exec "simple-single-new" bash -c "[[ ! -d /root/data ]]"
+  run docker exec "simple-single-new" bash -c "[[ ! -d /root/asdf/data ]]"
   [ "$status" -eq 0 ]
 }
 

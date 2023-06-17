@@ -14,7 +14,7 @@ run_hook() {
 
   docker exec \
     $container \
-    /opt/nanobox/hooks/$hook "$payload"
+    /opt/microbox/hooks/$hook "$payload"
 }
 
 start_container() {
@@ -26,22 +26,23 @@ start_container() {
     -d \
     -e "PATH=$(path)" \
     --privileged \
-    --net=nanobox \
+    --net=microbox-test \
     --ip=$ip \
-    --volume=${hookit_dir}/:/opt/nanobox/hooks \
-    nanobox/unfs:$VERSION
+    --volume=${hookit_dir}/:/opt/microbox/hooks \
+    mubox/unfs:$VERSION
 }
 
 stop_container() {
   docker stop $1
   docker rm $1
+  echo ''
 }
 
 path() {
   paths=(
-    "/opt/gonano/sbin"
-    "/opt/gonano/bin"
-    "/opt/gonano/bin"
+    "/opt/gomicro/sbin"
+    "/opt/gomicro/bin"
+    "/opt/gomicro/bin"
     "/usr/local/sbin"
     "/usr/local/bin"
     "/usr/sbin"

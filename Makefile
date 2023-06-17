@@ -1,7 +1,9 @@
-# -*- mode: makefile; tab-width: 8; indent-tabs-mode: 1 -*-
-# vim: ts=8 sw=8 ft=make noet
+# -*- mode: makefile; tab-width: 4; indent-tabs-mode: 1 -*-
+# vim: ts=4 sw=4 ft=make noet
 
-VERSIONS=0.9
+SHELL := /bin/bash
+
+VERSION=0.9
 SERVICE=unfs
 
 default: all
@@ -12,17 +14,19 @@ all: stable
 
 .PHONY: test
 
-test: $(addprefix test-,${VERSIONS})
+test: $(addprefix test-,${VERSION})
 
 .PHONY: test-%
 
-test-%: nanobox/${SERVICE}-%
+test-%: mubox/${SERVICE}-%
 	stdbuf -oL test/run_all.sh $(subst test-,,$@)
 
-.PHONY: nanobox/${SERVICE}-%
+.PHONY: mubox/${SERVICE}-%
 
-nanobox/${SERVICE}-%:
-	docker pull $(subst -,:,$@) || (docker pull $(subst -,:,$@)-beta; docker tag $(subst -,:,$@)-beta $(subst -,:,$@))
+mubox/${SERVICE}-%:
+	if [[ ! $$(docker images --format='{{.Repository}}-{{.Tag}}' $(subst -,:,$@)) =~ "$@" ]]; then \
+		docker pull $(subst -,:,$@) || (docker pull $(subst -,:,$@)-beta; docker tag $(subst -,:,$@)-beta $(subst -,:,$@)) \
+	fi
 
 .PHONY: stable beta alpha
 

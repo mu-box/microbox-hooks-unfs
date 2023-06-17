@@ -3,7 +3,7 @@
 # redirect stderr to stdout
 exec 2>&1
 
-export PATH="/data/sbin:/data/bin:/opt/gonano/sbin:/opt/gonano/bin:/opt/local/sbin:/opt/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+export PATH="/asdf/data/sbin:/asdf/data/bin:/opt/gomicro/sbin:/opt/gomicro/bin:/opt/local/sbin:/opt/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 sv start rpcbind || exit 1
-exec chpst -u gonano <%= exec %>
+exec chpst -u gomicro <%= exec %>

@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # hookit is installed as a bundled app, so we need bundler to load it for us
-$:.unshift  '/opt/gonano/hookit/vendor/bundle'
+$:.unshift  '/opt/gomicro/hookit/vendor/bundle'
 require 'bundler/setup'
 
 # load hookit/setup to bootstrap hookit and import the dsl
@@ -9,5 +9,5 @@ require 'hookit/setup'
 
 # TODO: assuming we can scp backups to a backup container
 execute "send data to backup container" do
-  command "tar -C / -czf - /data/var/db/unfs | ssh -o StrictHostKeyChecking=no #{payload[:warehouse][:host]} 'cat > /data/var/db/unfs/#{payload[:warehouse][:backup_id]}.tgz'"
+  command "tar -C / -czf - /asdf/data/var/db/unfs | ssh -o StrictHostKeyChecking=no #{payload[:warehouse][:host]} 'cat > /asdf/data/var/db/unfs/#{payload[:warehouse][:backup_id]}.tgz'"
 end

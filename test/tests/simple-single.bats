@@ -23,17 +23,17 @@ echo_lines() {
   if [[ ! "$(grep extra_path_dirs ../src/configure)" =~ "extra_path_dirs" ]]; then
     skip "${service_name} Doesn't Support Extra Path Dirs"
   fi
-  run docker exec "simple-single-production" cat /data/etc/env.d/EXTRA_PATHS
+  run docker exec "simple-single-production" cat /asdf/data/etc/env.d/EXTRA_PATHS
   echo_lines
   [ "$status" -eq 0 ]
-  [ "${output}" = "/data/var/home/gonano/bin:/var/tmp" ]
+  [ "${output}" = "/asdf/data/var/home/gomicro/bin:/var/tmp" ]
 }
 
 @test "Check To See That Extra Packages Were Installed" {
   if [[ ! "$(grep extra_packages ../src/configure)" =~ "extra_packages" ]]; then
     skip "${service_name} Doesn't Support Extra Packages"
   fi
-  run docker exec "simple-single-production" bash -c '[[ -f "/data/lib/libGeoIP.so" ]]'
+  run docker exec "simple-single-production" bash -c '[[ -f "/usr/lib/libGeoIP.so.1" ]]'
   echo_lines
   [ "$status" -eq 0 ]
 }
@@ -51,7 +51,7 @@ echo_lines() {
   if [[ ! "$(grep cron_jobs ../src/configure)" =~ "cron_jobs" ]]; then
     skip "${service_name} Doesn't Support Cron"
   fi
-  run docker exec "simple-single-production" bash -c '[[ -d "/opt/nanobox/cron" ]]'
+  run docker exec "simple-single-production" bash -c '[[ -d "/opt/microbox/cron" ]]'
   echo_lines
   [ "$status" -eq 0 ]
 }
